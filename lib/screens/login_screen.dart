@@ -76,14 +76,20 @@ class _LoginScreenState extends State<LoginScreen> {
                           setState(() {
                             loading = true;
                           });
-                          final user = await _auth.signInWithEmailAndPassword(
-                              email: email, password: password);
-                          if (user != null) {
-                            Navigator.pushNamed(context, '/chat');
+                          try {
+                            final user = await _auth.signInWithEmailAndPassword(
+                                email: email, password: password);
+                            if (user != null) {
+                              Navigator.pushNamed(context, '/chat');
+                            }
+                            setState(() {
+                              loading = false;
+                            });
+                          } catch (e) {
+                            setState(() {
+                              loading = false;
+                            });
                           }
-                          setState(() {
-                            loading = false;
-                          });
                         },
                         minWidth: 200.0,
                         height: 42.0,
@@ -101,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ? const Positioned(
                   child: LoadingWidget(),
                 )
-              : SizedBox()
+              : const SizedBox()
         ],
       ),
     );

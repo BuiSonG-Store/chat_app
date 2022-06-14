@@ -83,14 +83,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             loading = false;
                           });
                         } catch (e) {
-                          print(e);
+                          setState(() {
+                            loading = false;
+                          });
                         }
                       }),
                 ],
               ),
             ),
           ),
-          loading ? LoadingWidget() : SizedBox()
+          loading ? const LoadingWidget() : const SizedBox()
         ],
       ),
     );
